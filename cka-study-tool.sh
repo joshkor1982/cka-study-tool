@@ -4,9 +4,9 @@ set -euo pipefail
 
 # SET COLOR VARIABLES
 
-green=$(tput setaf 118) # GREEN
-yellow=$(tput setaf 3)   # YELLOW
-reset=$(tput sgr0)      # RESET
+green=$(tput setaf 118)     # GREEN
+yellow=$(tput setaf 3)      # YELLOW
+reset=$(tput sgr0)          # RESET
 
 # REUSABLE Banner
 
@@ -32,12 +32,11 @@ file_name="${rbac_options[$selection]}-example.yaml"
     --dry-run=client -o yaml > ${file_name}
   }
 
-reset &&
-echo "🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
+reset && echo "-----------------------------------------------------"
 echo "🔱 ${green}${rbac_options[$selection]}${reset} example manifest:"
-echo "🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
+echo "-----------------------------------------------------"
 grep --color -E "${role_name}|$" "${file_name}"
-echo "🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
+echo "-----------------------------------------------------"
 read -r -p "Press Enter to return to RBAC menu: "
 reset && Rbac_Menu
 }
@@ -53,12 +52,11 @@ file_name="${rbac_options[$selection]}-example.yaml"
     --dry-run=client -o yaml > ${file_name}
   }
 
-reset &&
-echo "🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
+reset && echo "-----------------------------------------------------"
 echo "🔱 ${green}${rbac_options[$selection]}${reset} example manifest:"
-echo "🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
+echo "-----------------------------------------------------"
 grep --color -E "${cluster_role_name}|$" "${file_name}"
-echo "🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
+echo "-----------------------------------------------------"
 read -r -p "Press Enter to return to RBAC menu: "
 reset && Rbac_Menu
 }
@@ -79,12 +77,11 @@ file_name="${rbac_options[$selection]}-example.yaml"
     --dry-run=client -o yaml > ${file_name} 
   }
 
-reset &&
-echo "🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
+reset && echo "-----------------------------------------------------"
 echo "🔱 ${green}${rbac_options[$selection]}${reset} example manifest:"
-echo "🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
+echo "-----------------------------------------------------"
 grep --color -E "${cluster_role_binding_name}|${cluster_role_name}|${user}|${group}|$" "${file_name}"
-echo "🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
+echo "-----------------------------------------------------"
 echo "Press Enter to return to RBAC menu: "
 reset && Rbac_Menu
 }
@@ -110,7 +107,7 @@ read -r -p "Select the type of RBAC resource to create: (0-${rbac_array_length})
     } || "${rbac_options[$selection]}"_Function
 }
 
-function Main_Menu () {
+function Main_Menu {
 Banner && echo "🌌  ARCHITECTURE, INSTALLATION, CONFIGURATION  🌌
 
 🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀
@@ -160,7 +157,7 @@ case "${option}" in
 esac
 }
 
-function Menu_Three () {
+function Menu_Three {
 Banner && echo "🌌  SERVICES AND NETWORKING  🌌
 
 🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀
