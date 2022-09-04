@@ -107,7 +107,7 @@ read -r -p "Select the type of RBAC resource to create: (0-${rbac_array_length})
     } || "${rbac_options[$selection]}"_Function
 }
 
-function Main_One {
+function Menu_One {
 Banner && echo "🌌  ARCHITECTURE, INSTALLATION, CONFIGURATION  🌌
 
 🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀
