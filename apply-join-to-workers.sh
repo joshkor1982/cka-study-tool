@@ -11,8 +11,7 @@ read -p "Enter Master Hostname: " master_hostname
 read -sp "Enter Master Password: " master_password
 clear
 
-ssh ${master_username}@${master_hostname} "echo ${master_password} | ${RESET_WORKER} && \
-sudo -S ${JOIN_COMMAND} | grep -w 'This node has joined the cluster'"
+ssh ${master_username}@${master_hostname} "echo ${master_password} | ${RESET_MASTER}"
 sleep 2
 clear
 
@@ -30,7 +29,7 @@ read -p "Enter Worker Two Username: " worker_two_username
 read -p "Enter Worker Two Hostname: " worker_two_hostname
 read -sp "Enter Worker Two Password: " worker_two_password
 clear
-ssh ${USERNAME_TWO}@${HOSTNAME_TWO} "echo ${PASSWORD_TWO} | ${RESET_WORKER} && \
+ssh ${worker_two_username}@${worker_two_hostname} "echo ${worker_two_password} | ${RESET_WORKER} && \
 sudo -S ${JOIN_COMMAND} | grep -w 'This node has joined the cluster'"
 sleep 2
 clear
