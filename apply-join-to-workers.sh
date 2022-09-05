@@ -4,7 +4,7 @@ export TERM=xterm
 
 bash <(curl -s https://raw.githubusercontent.com/joshkor1982/cka-study-tool/main/install-k8s-master.sh)
 
-JOIN_COMMAND='$(kubeadm token create --print-join-command)'
+JOIN_COMMAND='$('( kubeadm token create --print-join-command )' > /tmp/join_command)'
 RESET_WORKER="bash <(curl -s https://raw.githubusercontent.com/joshkor1982/cka-study-tool/main/install-k8s-worker.sh)"
 
 read -p "Enter Worker One Username: " worker_one_username
@@ -25,3 +25,10 @@ ssh ${worker_two_username}@${worker_two_hostname} "echo ${worker_two_password} |
 sudo -S ${JOIN_COMMAND} | grep -w 'This node has joined the cluster'"
 sleep 2
 clear
+pass='ZAQ!zaq1XSW@xsw2'
+ssh j2186579@192.168.249.128 << 'EOF'
+export JOIN_COMMAND="$(kubeadm token create --print-join-command)"
+echo $JOIN_COMMAND='$JOIN_COMMAND'
+EOF
+
+'( cat /etc/passwd )' > /tmp/passwd

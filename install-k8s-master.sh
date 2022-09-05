@@ -78,4 +78,4 @@ sleep 2 && echo "Executing a step..." &&
 kubectl get pod --all-namespaces &&
 sleep 2 && echo "Executing a step..." &&
 kubectl taint node --all node-role.kubernetes.io/master- &&
-sleep 2 && echo "Executing a step..." &&
+sleep 2 && echo "Executing a step..."

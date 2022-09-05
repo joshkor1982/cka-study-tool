@@ -27,12 +27,12 @@ read -p "Enter Master Hostname: " master_hostname
 read -sp "Enter Master Password: " master_password
 clear
 
-ssh ${master_username}@${master_hostname} "echo ${master_password} | ${RESET_MASTER}"
-sleep 2
-clear
+ssh ${master_username}@${master_hostname} "echo ${master_password} | ${RESET_MASTER} && '( kubeadm token create --print-join-command )' > /tmp/join_command"
+sleep 40
 }
 
 function Worker_Node_Setup {
+JOIN_COMMAND=$(cat /tmp/join_command)
 read -p "Enter Worker Node Username: " worker_username
 read -p "Enter Worker Node Hostname: " worker_hostname
 read -sp "Enter Worker Node Password: " worker_password
@@ -60,7 +60,7 @@ Banner && echo "🌌  INSTALL MENU  🌌
 🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
 read -r -p "Select an Option: " option
 case "${option}" in  
-  "1")  reset && Master_Node_Setup && reset && Install_Menu;;
+  "1")  reset && Master_Node_Setup;;
   "2")  reset && Worker_Node_Setup && reset && Install_Menu;;
   "3")  reset && UPGRADE_MENU;;
   "4")  reset && ETCD_BACKUP_RESTORE_MENU;;
@@ -80,11 +80,8 @@ file_name="${rbac_options[$selection]}-example.yaml"
     --dry-run=client -o yaml > ${file_name}
   }
 
-reset && echo "-----------------------------------------------------"
-echo "🔱 ${green}${rbac_options[$selection]}${reset} example manifest:"
-echo "-----------------------------------------------------"
+echo "${green}${rbac_options[$selection]}${reset} example manifest:"
 grep --color -E "${role_name}|$" "${file_name}"
-echo "-----------------------------------------------------"
 read -r -p "Press Enter to return to RBAC menu: "
 reset && Rbac_Menu
 }
@@ -100,11 +97,8 @@ file_name="${rbac_options[$selection]}-example.yaml"
     --dry-run=client -o yaml > ${file_name}
   }
 
-reset && echo "-----------------------------------------------------"
-echo "🔱 ${green}${rbac_options[$selection]}${reset} example manifest:"
-echo "-----------------------------------------------------"
+echo "${green}${rbac_options[$selection]}${reset} example manifest:"
 grep --color -E "${cluster_role_name}|$" "${file_name}"
-echo "-----------------------------------------------------"
 read -r -p "Press Enter to return to RBAC menu: "
 reset && Rbac_Menu
 }
@@ -125,11 +119,8 @@ file_name="${rbac_options[$selection]}-example.yaml"
     --dry-run=client -o yaml > ${file_name} 
   }
 
-reset && echo "-----------------------------------------------------"
-echo "🔱 ${green}${rbac_options[$selection]}${reset} example manifest:"
-echo "-----------------------------------------------------"
+echo "${green}${rbac_options[$selection]}${reset} example manifest:"
 grep --color -E "${cluster_role_binding_name}|${cluster_role_name}|${user}|${group}|$" "${file_name}"
-echo "-----------------------------------------------------"
 echo "Press Enter to return to RBAC menu: "
 reset && Rbac_Menu
 }

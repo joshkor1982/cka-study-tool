@@ -56,5 +56,4 @@ sudo -S apt-get update -y &&
 sleep 2 && echo "Executing a step..." &&
 sudo -S apt-get install -y kubeadm=1.22.1-00 kubelet=1.22.1-00 kubectl=1.22.1-00 --allow-downgrades &&
 sleep 2 && echo "Executing a step..." &&
-sudo -S apt-mark hold kubelet kubeadm kubectl &&
-echo "WORKER IS NOW CONFIGURED..." && sleep 4
+sudo -S apt-mark hold kubelet kubeadm kubectl
