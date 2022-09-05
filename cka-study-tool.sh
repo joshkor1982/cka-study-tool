@@ -44,11 +44,11 @@ clear
 }
 
 function Install_Menu {
-GITLAB_BASE_URL="https://raw.githubusercontent.com"
-GITLAB_REPO="joshkor1982/cka-study-tool/main"
-RESET_WORKER="bash <(curl -s "${GITLAB_BASE_URL}"/"${GITLAB_REPO}"/install-k8s-worker.sh)"
-RESET_MASTER="bash <(curl -s "${GITLAB_BASE_URL}"/"${GITLAB_REPO}"/install-k8s-master.sh)"
-JOIN_COMMAND="kubeadm"
+declare GITLAB_BASE_URL="https://raw.githubusercontent.com"
+declare GITLAB_REPO="joshkor1982/cka-study-tool/main"
+declare RESET_WORKER="bash <(curl -s "${GITLAB_BASE_URL}"/"${GITLAB_REPO}"/install-k8s-worker.sh)"
+declare RESET_MASTER="bash <(curl -s "${GITLAB_BASE_URL}"/"${GITLAB_REPO}"/install-k8s-master.sh)"
+declare RESET_MASTER="bash <(curl -s "${GITLAB_BASE_URL}"/"${GITLAB_REPO}"/install-k8s-master.sh)"d
 Banner && echo "🌌  INSTALL MENU  🌌
 
 🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀
