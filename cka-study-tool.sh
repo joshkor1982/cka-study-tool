@@ -27,12 +27,13 @@ read -p "Enter Master Hostname: " master_hostname
 read -sp "Enter Master Password: " master_password
 clear
 
-ssh ${master_username}@${master_hostname} "echo ${master_password} | ${RESET_MASTER} && '( kubeadm token create --print-join-command )' > /tmp/join_command"
-sleep 40
+ssh ${master_username}@${master_hostname} "echo ${master_password} | ${RESET_MASTER}"
+ssh -T ${master_username}@${master_hostname} '( kubeadm token create --print-join-command )' > /tmp/join_command
+sleep 2
+clear
 }
 
 function Worker_Node_Setup {
-ssh -T j2186579@192.168.249.128 '( kubeadm token create --print-join-command )' > /tmp/join_command
 JOIN_COMMAND=$(cat /tmp/join_command)
 read -p "Enter Worker Node Username: " worker_username
 read -p "Enter Worker Node Hostname: " worker_hostname
