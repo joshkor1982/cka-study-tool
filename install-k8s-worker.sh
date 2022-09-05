@@ -1,9 +1,5 @@
 #!/bin/bash
 
-green=$(tput setaf 118)     # GREEN
-yellow=$(tput setaf 3)      # YELLOW
-reset=$(tput sgr0)          # RESET
-
 set -euo pipefail
 
 sleep 2 && echo "${green}Executing a step...${reset}" &&
@@ -61,15 +57,4 @@ sleep 2 && echo "${green}Executing a step...${reset}" &&
 sudo -S apt-get install -y kubeadm=1.22.1-00 kubelet=1.22.1-00 kubectl=1.22.1-00 --allow-downgrades &&
 sleep 2 && echo "${green}Executing a step...${reset}" &&
 sudo -S apt-mark hold kubelet kubeadm kubectl &&
-sleep 2 && echo "${green}Executing a step...${reset}" &&
-source <(kubectl completion bash) &&
-sleep 2 && echo "${green}Executing a step...${reset}" &&
-sudo -S echo "source <(kubectl completion bash)" >> $HOME/.bashrc &&
-sleep 2 && echo "${green}Executing a step...${reset}" &&
-sudo -S kubeadm init --kubernetes-version 1.22.1 --cri-socket=/var/run/containerd/containerd.sock --pod-network-cidr 192.168.0.0/16 | tee $HOME/cp.out &&
-sleep 2 && echo "${green}Executing a step...${reset}" &&
-sudo -S mkdir -p $HOME/.kube &&
-sleep 2 && echo "${green}Executing a step...${reset}" &&
-sudo -S cp -i /etc/kubernetes/admin.conf $HOME/.kube/config &&
-sleep 2 && echo "${green}Executing a step...${reset}" &&
-sudo -S chown $(id -u):$(id -g) $HOME/.kube/config
+echo "WORKER IS NOW CONFIGURED..." && sleep 4

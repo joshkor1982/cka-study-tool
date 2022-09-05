@@ -1,9 +1,5 @@
 #!/bin/bash
 
-green=$(tput setaf 118)     # GREEN
-yellow=$(tput setaf 3)      # YELLOW
-reset=$(tput sgr0)          # RESET
-
 set -euo pipefail
 
 sleep 2 && echo "${green}Executing a step...${reset}" &&
