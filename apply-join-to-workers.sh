@@ -12,8 +12,7 @@ read -p "Enter Worker One Hostname: " worker_one_hostname
 read -sp "Enter Worker One Password: " worker_one_password
 clear
 
-ssh ${worker_one_username}@${worker_one_hostname} "echo ${worker_one_password} | ${RESET_WORKER} && \
-sudo -S ${JOIN_COMMAND} | grep -w 'This node has joined the cluster'"
+ssh ${worker_one_username}@${worker_one_hostname} "echo ${worker_one_password} | ${RESET_WORKER}"
 sleep 2
 clear
 

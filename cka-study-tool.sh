@@ -21,6 +21,54 @@ echo "
                                       ${yellow}ᴮʸ ᴶᴼˢᴴᵁᴬ ᴹᴵᴸᴸᴱᵀᵀ${reset}"
 }
 
+function Master_Node_Setup {
+read -p "Enter Master Username: " master_username
+read -p "Enter Master Hostname: " master_hostname
+read -sp "Enter Master Password: " master_password
+clear
+
+ssh ${master_username}@${master_hostname} "echo ${master_password} | ${RESET_MASTER}"
+sleep 2
+clear
+}
+
+function Worker_Node_Setup {
+read -p "Enter Worker Node Username: " worker_username
+read -p "Enter Worker Node Hostname: " worker_hostname
+read -sp "Enter Worker Node Password: " worker_password
+clear
+
+ssh ${worker_username}@${worker_hostname} "echo ${worker_password} | ${RESET_WORKER}"
+sleep 2
+clear
+}
+
+function Install_Menu {
+GITLAB_BASE_URL="https://raw.githubusercontent.com"
+GITLAB_REPO="joshkor1982/cka-study-tool/main"
+RESET_WORKER="bash <(curl -s "${GITLAB_BASE_URL}"/"${GITLAB_REPO}"/install-k8s-worker.sh)"
+RESET_MASTER="bash <(curl -s "${GITLAB_BASE_URL}"/"${GITLAB_REPO}"/install-k8s-master.sh)"
+JOIN_COMMAND="kubeadm"
+Banner && echo "🌌  INSTALL MENU  🌌
+
+🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀
+🔱 1  SET UP MASTER NODE
+🔱 2  SET UP WORKER NODE
+🔱 3  GET JOIN COMMAND
+🔱 4  UPGRADE A KUBERNETES CLUSTER
+🔱 0  RETURN TO MAIN MENU -->
+🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
+read -r -p "Select an Option: " option
+case "${option}" in  
+  "1")  reset && Master_Node_Setup && reset && Install_Menu;;
+  "2")  reset && Worker_Node_Setup && reset && Install_Menu;;
+  "3")  reset && UPGRADE_MENU;;
+  "4")  reset && ETCD_BACKUP_RESTORE_MENU;;
+  "0")  reset && Main_Menu;;  
+  *)    INVALID_SELECTION;;
+esac
+}
+
 function Role_Function {
 read -r -p "Enter ${green}${rbac_options[$selection]}${reset} name: (pod-reader) " role_name
 file_name="${rbac_options[$selection]}-example.yaml"
@@ -113,18 +161,16 @@ Banner && echo "🌌  ARCHITECTURE, INSTALLATION, CONFIGURATION  🌌
 🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀
 🔱 1  RBAC
 🔱 2  CLUSTER INSTALLATION
-🔱 3  UPGRADE A CLUSTER
-🔱 4  ETCD BACKUP/RESTORE
-🔱 5  MANAGE AN HA CLUSTER
+🔱 3  ETCD BACKUP/RESTORE
+🔱 4  MANAGE AN HA CLUSTER
 🔱 0  RETURN TO MAIN MENU -->
 🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
 read -r -p "Select an Option: " option
 case "${option}" in  
   "1")  reset && Rbac_Menu;;
-  "2")  reset && INSTALL_MENU;;
-  "3")  reset && UPGRADE_MENU;;
-  "4")  reset && ETCD_BACKUP_RESTORE_MENU;;
-  "5")  reset && MANAGE_HA_CLUSTER_MENU;;
+  "2")  reset && Install_Menu;;
+  "3")  reset && ETCD_BACKUP_RESTORE_MENU;;
+  "4")  reset && MANAGE_HA_CLUSTER_MENU;;
   "0")  reset && Main_Menu;;  
   *)    INVALID_SELECTION;;
 esac
