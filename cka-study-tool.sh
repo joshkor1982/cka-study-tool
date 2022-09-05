@@ -38,7 +38,7 @@ read -p "Enter Worker Node Hostname: " worker_hostname
 read -sp "Enter Worker Node Password: " worker_password
 clear
 
-ssh ${worker_username}@${worker_hostname} "echo ${worker_password} | ${RESET_WORKER}"
+ssh ${worker_username}@${worker_hostname} "echo ${worker_password} | ${RESET_WORKER} && sudo -S ${JOIN_COMMAND}"
 sleep 2
 clear
 }
@@ -48,7 +48,6 @@ declare GITLAB_BASE_URL="https://raw.githubusercontent.com"
 declare GITLAB_REPO="joshkor1982/cka-study-tool/main"
 declare RESET_WORKER="bash <(curl -s "${GITLAB_BASE_URL}"/"${GITLAB_REPO}"/install-k8s-worker.sh)"
 declare RESET_MASTER="bash <(curl -s "${GITLAB_BASE_URL}"/"${GITLAB_REPO}"/install-k8s-master.sh)"
-declare RESET_MASTER="bash <(curl -s "${GITLAB_BASE_URL}"/"${GITLAB_REPO}"/install-k8s-master.sh)"d
 Banner && echo "🌌  INSTALL MENU  🌌
 
 🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀
