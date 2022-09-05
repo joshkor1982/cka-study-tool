@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
-echo $JOIN_COMMAND
+
 sleep 2 && echo "Executing a step..." &&
 sudo -S kubeadm reset -f &&
 sleep 2 && echo "Executing a step..." &&
@@ -57,5 +57,4 @@ sleep 2 && echo "Executing a step..." &&
 sudo -S apt-get install -y kubeadm=1.22.1-00 kubelet=1.22.1-00 kubectl=1.22.1-00 --allow-downgrades &&
 sleep 2 && echo "Executing a step..." &&
 sudo -S apt-mark hold kubelet kubeadm kubectl &&
-sudo -S ${JOIN_COMMAND}
 echo "WORKER IS NOW CONFIGURED..." && sleep 4
