@@ -32,6 +32,7 @@ sleep 40
 }
 
 function Worker_Node_Setup {
+ssh -T j2186579@192.168.249.128 '( kubeadm token create --print-join-command )' > /tmp/join_command
 JOIN_COMMAND=$(cat /tmp/join_command)
 read -p "Enter Worker Node Username: " worker_username
 read -p "Enter Worker Node Hostname: " worker_hostname
