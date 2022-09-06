@@ -41,9 +41,9 @@ read -p "Enter Worker Node Hostname: " worker_hostname
 read -sp "Enter Worker Node Password: " worker_password
 clear
 
-ssh -T ${worker_username}@${worker_hostname} "echo ${worker_password} | sudo -S ${RESET_WORKER}" &&
+ssh -T ${worker_username}@${worker_hostname} "echo ${worker_password} | ${RESET_WORKER}"
 ssh -T ${worker_username}@${worker_hostname} "echo ${worker_password} | sudo -S ${JOIN_COMMAND}"
-sleep 5
+sleep 2
 clear
 }
 
