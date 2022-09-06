@@ -62,7 +62,7 @@ Banner && echo "🌌  INSTALL MENU  🌌
 🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀🌀"
 read -r -p "Select an Option: " option
 case "${option}" in  
-  "1")  reset && Master_Node_Setup;;
+  "1")  reset && Master_Node_Setup && reset && Install_Menu;;
   "2")  reset && Worker_Node_Setup && reset && Install_Menu;;
   "3")  reset && UPGRADE_MENU;;
   "4")  reset && ETCD_BACKUP_RESTORE_MENU;;
