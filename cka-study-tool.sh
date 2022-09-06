@@ -27,7 +27,7 @@ read -p "Enter Master Hostname: " master_hostname
 read -sp "Enter Master Password: " master_password
 clear
 
-ssh ${master_username}@${master_hostname} "echo ${master_password} | ${RESET_MASTER}"
+ssh -T ${master_username}@${master_hostname} "echo ${master_password} | ${RESET_MASTER}"
 ssh -T ${master_username}@${master_hostname} '( kubeadm token create --print-join-command )' > "$(pwd)"/join_command
 sleep 2
 clear
