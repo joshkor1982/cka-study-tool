@@ -34,15 +34,16 @@ clear
 }
 
 function Worker_Node_Setup {
-JOIN_COMMAND="$(cat $(pwd)/join_command)"
+export TERM=xterm
+export JOIN_COMMAND="$(cat $(pwd)/join_command)"
 read -p "Enter Worker Node Username: " worker_username
 read -p "Enter Worker Node Hostname: " worker_hostname
 read -sp "Enter Worker Node Password: " worker_password
 clear
 
-ssh ${worker_username}@${worker_hostname} "echo ${worker_password} | ${RESET_WORKER} && \
-sudo ${JOIN_COMMAND} | grep -w 'This node has joined the cluster'"
-sleep 10
+ssh -T ${worker_username}@${worker_hostname} "echo ${worker_password} | sudo -S ${RESET_WORKER}" &&
+ssh -T ${worker_username}@${worker_hostname} "echo ${worker_password} | sudo -S ${JOIN_COMMAND}"
+sleep 5
 clear
 }
 

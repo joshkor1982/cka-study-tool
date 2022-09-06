@@ -57,5 +57,4 @@ sleep 2 && echo "Executing a step..." &&
 sudo -S apt-get install -y kubeadm=1.22.1-00 kubelet=1.22.1-00 kubectl=1.22.1-00 --allow-downgrades &&
 sleep 2 && echo "Executing a step..." &&
 sudo -S apt-mark hold kubelet kubeadm kubectl &&
-grep -w "This node has joined the cluster" &&
 sleep 5
