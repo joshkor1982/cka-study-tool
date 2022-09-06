@@ -28,20 +28,21 @@ read -sp "Enter Master Password: " master_password
 clear
 
 ssh ${master_username}@${master_hostname} "echo ${master_password} | ${RESET_MASTER}"
-ssh -T ${master_username}@${master_hostname} '( kubeadm token create --print-join-command )' > /tmp/join_command
+ssh -T ${master_username}@${master_hostname} '( kubeadm token create --print-join-command )' > "$(pwd)"/join_command
 sleep 2
 clear
 }
 
 function Worker_Node_Setup {
-JOIN_COMMAND=$(cat /tmp/join_command)
+JOIN_COMMAND="$(cat $(pwd)/join_command)"
 read -p "Enter Worker Node Username: " worker_username
 read -p "Enter Worker Node Hostname: " worker_hostname
 read -sp "Enter Worker Node Password: " worker_password
 clear
 
-ssh ${worker_username}@${worker_hostname} "echo ${worker_password} | ${RESET_WORKER} && sudo -S ${JOIN_COMMAND}"
-sleep 2
+ssh ${worker_username}@${worker_hostname} "echo ${worker_password} | ${RESET_WORKER} && \
+sudo ${JOIN_COMMAND} | grep -w 'This node has joined the cluster'"
+sleep 10
 clear
 }
 
