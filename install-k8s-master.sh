@@ -42,7 +42,7 @@ sudo -S apt-get install -y kubeadm=1.22.1-00 kubelet=1.22.1-00 kubectl=1.22.1-00
 sudo -S apt-mark hold kubelet kubeadm kubectl &&
 source <(kubectl completion bash) &&
 sudo -S echo "source <(kubectl completion bash)" >> $HOME/.bashrc &&
-sudo -S kubeadm init --kubernetes-version 1.22.1 --cri-socket=/var/run/containerd/containerd.sock --pod-network-cidr 192.168.0.0/16 | tee $HOME/cp.out &&
+sudo -S kubeadm init --kubernetes-version 1.22.1 --cri-socket=/var/run/containerd/containerd.sock --pod-network-cidr 192.168.0.0/16 --control-plane-endpoint 192.168.249.133| tee $HOME/cp.out &&
 sudo -S mkdir -p $HOME/.kube &&
 sudo -S cp -i /etc/kubernetes/admin.conf $HOME/.kube/config &&
 sudo -S chown $(id -u):$(id -g) $HOME/.kube/config &&
