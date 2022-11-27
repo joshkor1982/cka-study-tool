@@ -25,9 +25,12 @@ EOF
 sudo -S sysctl --system &&
 sudo -S apt-get update && sudo -S apt-get install -y apt-transport-https ca-certificates curl software-properties-common containerd
 sleep 2 && echo "Executing a step..."
-sudo -S curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo -S apt-key --keyring /etc/apt/trusted.gpg.d/docker.gpg add -
-sleep 2 && echo "Executing a step..."
-sudo -S add-apt-repository  "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo -S mkdir -p /etc/apt/keyrings &&
+sudo -S curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&
+sudo -S echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&
+
 sudo -S apt-get update && sudo apt-get install -y containerd.io &&
 sudo -S mkdir -p /etc/containerd &&
 sudo -S containerd config default | sudo tee /etc/containerd/config.toml &&
@@ -47,4 +50,4 @@ sudo -S sleep 15 &&
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml &&
 kubectl get pod --all-namespaces &&
 kubectl taint node --all node-role.kubernetes.io/master- &&
-sleep 2 && echo "Enter password to create the join-command local file..." &&
+sleep 2 && echo "Enter password to create the join-command local file..."
